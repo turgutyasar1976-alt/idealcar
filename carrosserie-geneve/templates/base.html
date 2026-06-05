@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Primary -->
+  <title>{{ seo.title }}</title>
+  <meta name="description" content="{{ seo.description }}">
+  <meta name="keywords" content="{{ seo.keywords }}">
+  <link rel="canonical" href="{{ business.website }}{{ canonical_path | default('') }}">
+
+  <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_CH">
+  <meta property="og:site_name" content="{{ business.name }}">
+  <meta property="og:title" content="{{ seo.title }}">
+  <meta property="og:description" content="{{ seo.description }}">
+  <meta property="og:url" content="{{ business.website }}{{ canonical_path | default('') }}">
+  <meta property="og:image" content="{{ business.website }}{{ seo.og_image }}">
+  <meta property="og:image:alt" content="{{ seo.og_image_alt }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ seo.title }}">
+  <meta name="twitter:description" content="{{ seo.description }}">
+  <meta name="twitter:image" content="{{ business.website }}{{ seo.og_image }}">
+  <meta name="twitter:image:alt" content="{{ seo.og_image_alt }}">
+
+  <!-- Perf : pas de requête externe — CSS inliné directement -->
+  <style>{{ inline_css | safe }}</style>
+
+  <!-- JSON-LD Schema.org LocalBusiness / AutoRepair -->
+  <script type="application/ld+json">{{ schema | safe }}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+  {% block body %}{% endblock %}
+</body>
+</html>

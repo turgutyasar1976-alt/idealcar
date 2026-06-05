@@ -1,0 +1,355 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<!-- ======================================================
+     HEADER — Navigation collante
+     ====================================================== -->
+<header class="site-header" role="banner">
+  <div class="container">
+    <a href="/" class="logo" aria-label="{{ business.name }} — Accueil">
+      <img src="/static/images/logo-idealcar.png" alt="{{ business.name }}" class="logo-img" width="120" height="50">
+    </a>
+
+    <button
+      class="nav-toggle"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+      aria-controls="nav-menu"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+
+    <nav aria-label="Navigation principale">
+      <ul class="nav-list" id="nav-menu" role="list">
+        <li><a href="#services">Nos services</a></li>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#avis">Avis clients</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li>
+          <a href="tel:{{ business.phone | replace(' ','') }}" class="nav-cta">
+            ☎ {{ business.phone }}
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ======================================================
+     MAIN
+     ====================================================== -->
+<main id="main-content">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" aria-label="Présentation Carrosserie Pro Genève">
+    <div class="container">
+      <h1>{{ hero.headline_start }} <em>{{ hero.headline_em }}</em></h1>
+      <p class="hero-sub">{{ hero.subheadline }}</p>
+
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">
+          {{ hero.cta_primary }}
+        </a>
+        <a href="tel:{{ business.phone | replace(' ','') }}" class="btn btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07
+                     A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67
+                     A2 2 0 0 1 3.57 2h3a2 2 0 0 1 2 1.72
+                     c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.72
+                     a16 16 0 0 0 6.29 6.29l.82-.91a2 2 0 0 1 2.11-.45
+                     c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          {{ hero.cta_phone_label }}
+        </a>
+      </div>
+
+      <ul class="hero-badges" aria-label="Nos garanties" role="list">
+        {% for badge in hero.badges %}
+        <li class="badge" role="listitem">
+          <span class="badge-check" aria-hidden="true">✓</span>
+          {{ badge }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="section section-alt" id="services" aria-labelledby="services-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="services-heading">Nos Services de Carrosserie à Genève</h2>
+        <p>De la simple bosse au remplacement complet de carrosserie,
+           notre atelier prend en charge toutes les réparations — toutes marques.</p>
+      </div>
+
+      <div class="services-grid" role="list">
+        {% for service in services %}
+        <article class="service-card" role="listitem" aria-label="{{ service.title }}">
+          <span class="service-icon" aria-hidden="true">{{ service.icon }}</span>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== À PROPOS ===== -->
+  <section class="section" id="about" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="about-inner">
+
+        <div class="about-text">
+          <h2 id="about-heading">
+            {{ about.headline_start }} <em>{{ about.headline_em }}</em>
+          </h2>
+          <p>{{ about.text }}</p>
+
+          <div class="stats-grid" aria-label="Chiffres clés">
+            {% for stat in about.stats %}
+            <div class="stat">
+              <span class="stat-value">{{ stat.value }}</span>
+              <span class="stat-label">{{ stat.label }}</span>
+            </div>
+            {% endfor %}
+          </div>
+
+          <a href="#contact" class="btn btn-primary">{{ about.cta }}</a>
+        </div>
+
+        <!-- Image : remplacez le fichier WebP (600×450px) dans static/images/ -->
+        <figure class="about-figure">
+          <img
+            src="{{ about.image_src }}"
+            alt="{{ about.image_alt }}"
+            width="{{ about.image_width }}"
+            height="{{ about.image_height }}"
+            loading="lazy"
+            decoding="async"
+          >
+        </figure>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AVIS CLIENTS ===== -->
+  <section class="section section-alt" id="avis" aria-labelledby="avis-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="avis-heading">Avis de nos Clients Genevois</h2>
+        <p>{{ business.aggregate_rating.count }} avis vérifiés —
+           note moyenne {{ business.aggregate_rating.value }}/5</p>
+      </div>
+
+      <div class="testimonials-grid" role="list">
+        {% for t in testimonials %}
+        <article
+          class="testimonial-card"
+          role="listitem"
+          itemscope
+          itemtype="https://schema.org/Review"
+        >
+          <div class="stars" aria-label="{{ t.rating }} étoiles sur 5">
+            {% for _ in range(t.rating) %}★{% endfor %}
+          </div>
+          <p class="testimonial-text" itemprop="reviewBody">"{{ t.text }}"</p>
+          <p class="testimonial-author" itemprop="author">— {{ t.author }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section" id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="contact-heading">Contactez votre Carrossier à Genève</h2>
+        <p>Devis gratuit sous 24h. Notre équipe vous répond rapidement.</p>
+      </div>
+
+      <div class="contact-grid">
+
+        <!-- Informations -->
+        <div class="contact-info">
+          <h3>Nos coordonnées</h3>
+
+          <div class="contact-item">
+            <span class="contact-item-icon" aria-hidden="true">📍</span>
+            <div>
+              <div class="contact-item-label">Adresse</div>
+              <address class="contact-item-value" style="font-style:normal;">
+                {{ business.address.streetAddress }}<br>
+                {{ business.address.postalCode }} {{ business.address.addressLocality }}, Suisse
+              </address>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-item-icon" aria-hidden="true">📞</span>
+            <div>
+              <div class="contact-item-label">Téléphone</div>
+              <div class="contact-item-value">
+                <a href="tel:{{ business.phone | replace(' ','') }}">{{ business.phone }}</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-item-icon" aria-hidden="true">✉️</span>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-value">
+                <a href="mailto:{{ business.email }}">{{ business.email }}</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-item-icon" aria-hidden="true">🕐</span>
+            <div>
+              <div class="contact-item-label">Horaires d'ouverture</div>
+              <ul class="hours-list">
+                <li>
+                  <span>{{ business.openingHours.weekdays.label }}</span>
+                  <span>{{ business.openingHours.weekdays.hours }}</span>
+                </li>
+                <li>
+                  <span>{{ business.openingHours.saturday.label }}</span>
+                  <span>{{ business.openingHours.saturday.hours }}</span>
+                </li>
+                <li>
+                  <span>{{ business.openingHours.sunday.label }}</span>
+                  <span class="hours-closed">{{ business.openingHours.sunday.hours }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulaire de contact -->
+        <form
+          class="contact-form"
+          id="contact-form"
+          action="/contact"
+          method="post"
+          aria-label="Formulaire de demande de devis"
+          novalidate
+        >
+          <div class="form-success" id="form-success" role="alert">
+            ✓ Votre message a bien été envoyé. Nous vous répondons sous 24h.
+          </div>
+
+          <div class="form-group">
+            <label for="name">Nom complet <span aria-hidden="true">*</span></label>
+            <input
+              type="text" id="name" name="name"
+              required autocomplete="name"
+              placeholder="Jean Dupont"
+              aria-required="true"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Téléphone <span aria-hidden="true">*</span></label>
+            <input
+              type="tel" id="phone" name="phone"
+              required autocomplete="tel"
+              placeholder="+41 22 000 00 00"
+              aria-required="true"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email" id="email" name="email"
+              autocomplete="email"
+              placeholder="vous@email.ch"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="service">Type de prestation</label>
+            <select id="service" name="service">
+              <option value="">— Choisir une prestation —</option>
+              {% for s in services %}
+              <option value="{{ s.id }}">{{ s.title }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Votre message</label>
+            <textarea
+              id="message" name="message"
+              placeholder="Décrivez brièvement votre véhicule (marque, modèle, année) et le problème constaté…"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            Envoyer ma demande de devis
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================================================
+     FOOTER
+     ====================================================== -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <p class="footer-brand">Ideal<span>Car</span></p>
+    <ul class="footer-links" role="list">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#avis">Avis</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="/mentions-legales">Mentions légales</a></li>
+    </ul>
+    <p>
+      &copy; {{ current_year }} {{ business.name }} —
+      {{ business.address.streetAddress }},
+      {{ business.address.postalCode }} {{ business.address.addressLocality }} —
+      <a href="tel:{{ business.phone | replace(' ','') }}">{{ business.phone }}</a>
+    </p>
+  </div>
+</footer>
+
+<!-- JS minimal : toggle nav mobile uniquement -->
+<script>
+(function () {
+  var btn  = document.querySelector('.nav-toggle');
+  var menu = document.getElementById('nav-menu');
+  if (!btn || !menu) return;
+
+  btn.addEventListener('click', function () {
+    var open = menu.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+  });
+
+  /* Ferme le menu quand on clique un lien */
+  menu.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      menu.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Ouvrir le menu');
+    });
+  });
+}());
+</script>
+
+{% endblock %}

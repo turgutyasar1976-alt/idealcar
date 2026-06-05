@@ -1,0 +1,120 @@
+{
+  "business": {
+    "name": "Ideal Car",
+    "tagline": "Expert en réparation carrosserie & peinture auto à Genève",
+    "description": "Ideal Car, votre carrosserie à Genève depuis 20 ans. Réparation tôlerie, débosselage sans peinture, peinture automobile et pare-chocs. Agréé assurances.",
+    "address": {
+      "streetAddress": "Route du Mandemant 15",
+      "addressLocality": "Meyrin",
+      "postalCode": "1217",
+      "addressCountry": "CH"
+    },
+    "phone": "+41 78 965 75 76",
+    "email": "ideal.car@yahoo.com",
+    "website": "https://www.idealcar-geneve.ch",
+    "priceRange": "$$",
+    "geo": {
+      "latitude": 46.2333,
+      "longitude": 6.0806
+    },
+    "openingHours": {
+      "weekdays": { "label": "Lundi – Vendredi", "hours": "07h30 – 18h00" },
+      "saturday": { "label": "Samedi", "hours": "08h00 – 12h00" },
+      "sunday": { "label": "Dimanche", "hours": "Fermé" }
+    },
+    "schema_opening_hours": [
+      {
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "07:30",
+        "closes": "18:00"
+      },
+      {
+        "dayOfWeek": ["Saturday"],
+        "opens": "08:00",
+        "closes": "12:00"
+      }
+    ],
+    "aggregate_rating": {
+      "value": "4.9",
+      "count": "87"
+    }
+  },
+  "seo": {
+    "title": "Ideal Car Genève | Réparation Tôlerie & Peinture Auto — Expert Agréé",
+    "description": "Ideal Car, votre carrosserie à Meyrin-Genève : réparation tôlerie, peinture auto, débosselage sans peinture. Devis gratuit sous 24h. Expert agréé assurances. ☎ +41 78 965 75 76.",
+    "keywords": "Ideal Car Genève, carrosserie Genève, réparation tôlerie Genève, peinture auto Genève, débosselage Genève, carrossier Genève",
+    "og_image": "/static/images/logo-idealcar.png",
+    "og_image_alt": "Ideal Car Genève — Carrosserie, réparation tôlerie et peinture automobile"
+  },
+  "hero": {
+    "headline_start": "Ideal Car —",
+    "headline_em": "Genève",
+    "subheadline": "Expert en réparation tôlerie, peinture auto et débosselage — devis gratuit sous 24h",
+    "cta_primary": "Demander un devis gratuit",
+    "cta_phone_label": "Appeler maintenant",
+    "badges": [
+      "Agréé assurances",
+      "Devis gratuit 24h",
+      "20 ans d'expérience",
+      "Toutes marques"
+    ]
+  },
+  "services": [
+    {
+      "id": "tolerie",
+      "title": "Réparation Tôlerie",
+      "description": "Remise en forme après accident, remplacement de pièces et soudure. Résultat garanti à l'identique d'origine.",
+      "icon": "🔧"
+    },
+    {
+      "id": "peinture",
+      "title": "Peinture Automobile",
+      "description": "Peinture au teint exact dans notre cabine ventilée. Vernis bi-composant pour un rendu showroom.",
+      "icon": "🎨"
+    },
+    {
+      "id": "debosselage",
+      "title": "Débosselage Sans Peinture",
+      "description": "Technique DSP pour bosses sans dommage au vernis — intervention rapide et très économique.",
+      "icon": "✨"
+    },
+    {
+      "id": "assurance",
+      "title": "Expert Agréé Assurances",
+      "description": "Nous gérons directement le dossier avec votre assurance suisse. Zéro démarche pour vous.",
+      "icon": "📋"
+    }
+  ],
+  "about": {
+    "headline_start": "20 ans d'expertise carrosserie à",
+    "headline_em": "Genève",
+    "text": "Ideal Car est un atelier implanté au cœur de Genève qui allie savoir-faire artisanal et équipements de dernière génération. Agréés par les principales compagnies d'assurance suisses, nous garantissons un travail de qualité OEM sur toutes marques, des citadines aux véhicules de prestige.",
+    "stats": [
+      { "value": "20+", "label": "ans d'expérience" },
+      { "value": "5k+", "label": "véhicules traités" },
+      { "value": "4.9★", "label": "note moyenne" }
+    ],
+    "cta": "Demander un devis gratuit",
+    "image_src": "/static/images/atelier-carrosserie-geneve.webp",
+    "image_alt": "Technicien carrossier travaillant sur une carrosserie dans notre atelier à Genève",
+    "image_width": 600,
+    "image_height": 450
+  },
+  "testimonials": [
+    {
+      "author": "Marie-Claire F.",
+      "rating": 5,
+      "text": "Travail impeccable sur ma Volkswagen après un accrochage. Délai respecté, peinture parfaitement assortie. Je recommande vivement."
+    },
+    {
+      "author": "Jean-Pierre M.",
+      "rating": 5,
+      "text": "Excellent rapport qualité-prix. L'équipe a géré tout avec mon assurance directement, sans aucun stress de ma part."
+    },
+    {
+      "author": "Sophie R.",
+      "rating": 5,
+      "text": "Débosselage sans peinture réalisé en une journée. La bosse a complètement disparu, on ne voit absolument rien."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+# Fichiers sensibles / documents internes
+*.pdf
+*.rtf
+.DS_Store
