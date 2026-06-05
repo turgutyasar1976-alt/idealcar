@@ -1,0 +1,57 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+
+  <!-- Decorative circles (right side) -->
+  <circle cx="1080" cy="315" r="340" fill="none" stroke="#D42B2B" stroke-width="1.5" opacity="0.12"/>
+  <circle cx="1080" cy="315" r="240" fill="none" stroke="#D42B2B" stroke-width="1" opacity="0.08"/>
+  <circle cx="1080" cy="315" r="140" fill="none" stroke="#D42B2B" stroke-width="1" opacity="0.06"/>
+
+  <!-- Left red accent bar -->
+  <rect width="7" height="630" fill="#D42B2B"/>
+
+  <!-- Top red line -->
+  <rect y="0" width="1200" height="3" fill="#D42B2B"/>
+
+  <!-- IDEAL CAR main title -->
+  <text x="80" y="295"
+    font-family="'Arial Black', 'Arial Bold', Arial, sans-serif"
+    font-size="136"
+    font-weight="900"
+    font-style="italic"
+    fill="white"
+    letter-spacing="-3">IDEAL CAR</text>
+
+  <!-- Red separator -->
+  <rect x="80" y="328" width="260" height="5" fill="#D42B2B" rx="2"/>
+
+  <!-- Subtitle -->
+  <text x="80" y="393"
+    font-family="Arial, sans-serif"
+    font-size="30"
+    font-weight="700"
+    fill="#D42B2B"
+    letter-spacing="4">CARROSSERIE &amp; PEINTURE AUTO</text>
+
+  <!-- Location / badges -->
+  <text x="80" y="445"
+    font-family="Arial, sans-serif"
+    font-size="26"
+    fill="rgba(255,255,255,0.55)"
+    letter-spacing="1">Meyrin-Genève, Suisse  ·  Agréé Assurances  ·  Devis gratuit 24h</text>
+
+  <!-- Horizontal rule -->
+  <rect x="80" y="505" width="1040" height="1" fill="rgba(255,255,255,0.12)"/>
+
+  <!-- Contact line -->
+  <text x="80" y="552"
+    font-family="Arial, sans-serif"
+    font-size="23"
+    fill="rgba(255,255,255,0.38)"
+    letter-spacing="0.5">+41 78 965 75 76  ·  ideal.car76@yahoo.com  ·  idealcar.ch</text>
+
+  <!-- Bottom red accent -->
+  <rect y="620" width="1200" height="10" fill="#D42B2B"/>
+
+</svg>
