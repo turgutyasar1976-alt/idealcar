@@ -1356,7 +1356,7 @@ window.switchTab = function (id) {
 
 /* RDV FORMS — AJAX submission + confirmation message */
 (function () {
-  document.querySelectorAll('.rdv-form').forEach(function (form) {
+  document.querySelectorAll('form.rdv-form').forEach(function (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var btn = form.querySelector('.rdv-submit');
@@ -1455,7 +1455,7 @@ window.switchTab = function (id) {
     });
   });
 
-  var singles = document.querySelectorAll('.section-header, .about-text, .ba-slider, .rdv-tabs, .rdv-form');
+  var singles = document.querySelectorAll('.section-header, .about-text, .ba-slider, .rdv-tabs, form.rdv-form');
   singles.forEach(function (el) {
     if (!el.classList.contains('reveal')) el.classList.add('reveal');
   });
