@@ -247,6 +247,15 @@
     .rdv-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
     .rdv-submit { background: linear-gradient(135deg,#111 0%,#2c2c2c 100%); color: #fff; border-color: transparent; margin-top: .5rem; padding-inline: 2.5rem; border-radius: 50px; box-shadow: 0 2px 10px rgba(0,0,0,.2); }
     .rdv-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,0,0,.3); }
+    .rdv-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .rdv-success { display: none; flex-direction: column; align-items: center; text-align: center; padding: 2.5rem 1.5rem; gap: 1rem; }
+    .rdv-success--show { display: flex; }
+    .rdv-success-icon { width: 64px; height: 64px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .rdv-success-icon svg { width: 32px; height: 32px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .rdv-success h3 { font-size: 1.375rem; font-weight: 800; color: #000; letter-spacing: -.025em; }
+    .rdv-success p { color: var(--muted); font-size: .9375rem; line-height: 1.7; max-width: 420px; }
+    .rdv-success-detail { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-sm); padding: .875rem 1.25rem; font-size: .875rem; color: #444; width: 100%; max-width: 360px; }
+    .rdv-success-detail strong { color: #000; }
     @media (max-width: 600px) { .rdv-tabs { flex-direction: column; } .rdv-tab { justify-content: center; } }
 
     /* ── WHATSAPP PILL minimaliste ── */
@@ -1037,6 +1046,16 @@
           </div>
           <button type="submit" class="btn rdv-submit">Confirmer le rendez-vous</button>
         </form>
+        <div class="rdv-form rdv-success">
+          <div class="rdv-success-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Rendez-vous confirmé !</h3>
+          <p>Merci <strong class="rdv-success-nom"></strong>, votre demande a bien été reçue. Nous vous confirmons votre rendez-vous dans les <strong>24 heures</strong> par email ou téléphone.</p>
+          <div class="rdv-success-detail">
+            📋 Prestation : <strong class="rdv-success-service"></strong><br>
+            📅 Date souhaitée : <strong class="rdv-success-date"></strong>
+          </div>
+          <p style="font-size:.8125rem;color:var(--muted);">Une question ? Appelez-nous au <a href="tel:+41789657576"><strong>+41 78 965 75 76</strong></a></p>
+        </div>
       </div>
 
       <!-- PANNEAU : SERVICES RAPIDES -->
@@ -1080,6 +1099,16 @@
           </div>
           <button type="submit" class="btn rdv-submit">Confirmer le rendez-vous</button>
         </form>
+        <div class="rdv-form rdv-success">
+          <div class="rdv-success-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Rendez-vous confirmé !</h3>
+          <p>Merci <strong class="rdv-success-nom"></strong>, votre demande a bien été reçue. Nous vous confirmons votre rendez-vous dans les <strong>24 heures</strong> par email ou téléphone.</p>
+          <div class="rdv-success-detail">
+            📋 Prestation : <strong class="rdv-success-service"></strong><br>
+            📅 Date souhaitée : <strong class="rdv-success-date"></strong>
+          </div>
+          <p style="font-size:.8125rem;color:var(--muted);">Une question ? Appelez-nous au <a href="tel:+41789657576"><strong>+41 78 965 75 76</strong></a></p>
+        </div>
       </div>
 
       <!-- PANNEAU : SAISONNIER & PNEUS -->
@@ -1122,6 +1151,16 @@
           </div>
           <button type="submit" class="btn rdv-submit">Confirmer le rendez-vous</button>
         </form>
+        <div class="rdv-form rdv-success">
+          <div class="rdv-success-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Rendez-vous confirmé !</h3>
+          <p>Merci <strong class="rdv-success-nom"></strong>, votre demande a bien été reçue. Nous vous confirmons votre rendez-vous dans les <strong>24 heures</strong> par email ou téléphone.</p>
+          <div class="rdv-success-detail">
+            📋 Prestation : <strong class="rdv-success-service"></strong><br>
+            📅 Date souhaitée : <strong class="rdv-success-date"></strong>
+          </div>
+          <p style="font-size:.8125rem;color:var(--muted);">Une question ? Appelez-nous au <a href="tel:+41789657576"><strong>+41 78 965 75 76</strong></a></p>
+        </div>
       </div>
 
     </div>
@@ -1313,6 +1352,47 @@ window.switchTab = function (id) {
     document.getElementById('btn-' + id).setAttribute('aria-selected', 'true');
     document.getElementById('tab-' + id).classList.add('rdv-panel--active');
   };
+})();
+
+/* RDV FORMS — soumission AJAX + message de confirmation */
+(function () {
+  document.querySelectorAll('.rdv-form').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('.rdv-submit');
+      var data = new FormData(form);
+      var nom = data.get('nom') || '';
+      var service = data.get('service') || '';
+      var date = data.get('date') || '';
+      var dateStr = date ? new Date(date).toLocaleDateString('fr-CH', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) : '';
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours…';
+      fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(function (res) {
+        if (res.ok) {
+          form.style.display = 'none';
+          var success = form.parentNode.querySelector('.rdv-success');
+          if (success) {
+            success.classList.add('rdv-success--show');
+            if (nom) success.querySelector('.rdv-success-nom').textContent = nom;
+            if (service) success.querySelector('.rdv-success-service').textContent = service;
+            if (dateStr) success.querySelector('.rdv-success-date').textContent = dateStr;
+          }
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Confirmer le rendez-vous';
+          alert('Une erreur est survenue. Merci de réessayer ou de nous appeler directement.');
+        }
+      }).catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Confirmer le rendez-vous';
+        alert('Connexion impossible. Merci de réessayer.');
+      });
+    });
+  });
 })();
 
 (function () {
