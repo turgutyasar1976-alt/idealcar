@@ -2,13 +2,21 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <!-- Google Analytics GA4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X5RS1C7DRV"></script>
+  <!-- Google Analytics GA4 — chargé uniquement après consentement cookie -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-X5RS1C7DRV');
+    function loadGA4() {
+      if (window._ga4loaded) return;
+      window._ga4loaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-X5RS1C7DRV';
+      document.head.appendChild(s);
+      gtag('js', new Date());
+      gtag('config', 'G-X5RS1C7DRV');
+    }
+    if (localStorage.getItem('cookie-consent') === 'accepted') loadGA4();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="logo-idealcar-transparent.png">
@@ -1240,7 +1248,7 @@
 <!-- BANDEAU COOKIES -->
 <div class="cookie-banner is-hidden" id="cookie-banner" role="dialog" aria-label="Consentement aux cookies" aria-live="polite">
   <p class="cookie-text">
-    Nous utilisons des cookies pour améliorer votre expérience de navigation. En continuant, vous acceptez leur utilisation.
+    🍪 Ce site utilise des cookies analytiques (Google Analytics) pour mesurer l'audience et améliorer nos services, conformément à la <strong>nLPD suisse</strong>. Aucune donnée personnelle n'est vendue. <a href="cgv-fr.html">En savoir plus</a>
   </p>
   <div class="cookie-actions">
     <button class="cookie-btn cookie-btn--decline" id="cookie-decline">Refuser</button>
@@ -1336,21 +1344,24 @@ window.switchTab = function (id) {
   onScroll();
 })();
 
-/* COOKIE BANNER */
+/* COOKIE BANNER — nLPD conforme */
 (function () {
   var banner = document.getElementById('cookie-banner');
   if (!banner) return;
   if (localStorage.getItem('cookie-consent')) { banner.remove(); return; }
-  setTimeout(function () { banner.classList.remove('is-hidden'); }, 900);
+  setTimeout(function () { banner.classList.remove('is-hidden'); }, 1200);
   function dismiss() {
     banner.classList.add('is-hidden');
     setTimeout(function () { banner.remove(); }, 500);
   }
   document.getElementById('cookie-accept').addEventListener('click', function () {
-    localStorage.setItem('cookie-consent', 'accepted'); dismiss();
+    localStorage.setItem('cookie-consent', 'accepted');
+    if (typeof loadGA4 === 'function') loadGA4();
+    dismiss();
   });
   document.getElementById('cookie-decline').addEventListener('click', function () {
-    localStorage.setItem('cookie-consent', 'declined'); dismiss();
+    localStorage.setItem('cookie-consent', 'declined');
+    dismiss();
   });
 })();
 

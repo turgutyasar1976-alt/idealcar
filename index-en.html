@@ -2,13 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Google Analytics GA4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X5RS1C7DRV"></script>
+  <!-- Google Analytics GA4 — loaded only after cookie consent -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-X5RS1C7DRV');
+    function loadGA4() {
+      if (window._ga4loaded) return;
+      window._ga4loaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-X5RS1C7DRV';
+      document.head.appendChild(s);
+      gtag('js', new Date());
+      gtag('config', 'G-X5RS1C7DRV');
+    }
+    if (localStorage.getItem('cookie-consent') === 'accepted') loadGA4();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="logo-idealcar-transparent.png">
@@ -1240,7 +1248,7 @@
 <!-- COOKIE BANNER -->
 <div class="cookie-banner is-hidden" id="cookie-banner" role="dialog" aria-label="Cookie consent" aria-live="polite">
   <p class="cookie-text">
-    We use cookies to improve your browsing experience. By continuing, you agree to our use of cookies.
+    🍪 This site uses analytical cookies (Google Analytics) to measure audience and improve our services, in accordance with the <strong>Swiss nFADP</strong>. No personal data is sold. <a href="cgv-en.html">Learn more</a>
   </p>
   <div class="cookie-actions">
     <button class="cookie-btn cookie-btn--decline" id="cookie-decline">Decline</button>
@@ -1336,21 +1344,24 @@ window.switchTab = function (id) {
   onScroll();
 })();
 
-/* COOKIE BANNER */
+/* COOKIE BANNER — nFADP compliant */
 (function () {
   var banner = document.getElementById('cookie-banner');
   if (!banner) return;
   if (localStorage.getItem('cookie-consent')) { banner.remove(); return; }
-  setTimeout(function () { banner.classList.remove('is-hidden'); }, 900);
+  setTimeout(function () { banner.classList.remove('is-hidden'); }, 1200);
   function dismiss() {
     banner.classList.add('is-hidden');
     setTimeout(function () { banner.remove(); }, 500);
   }
   document.getElementById('cookie-accept').addEventListener('click', function () {
-    localStorage.setItem('cookie-consent', 'accepted'); dismiss();
+    localStorage.setItem('cookie-consent', 'accepted');
+    if (typeof loadGA4 === 'function') loadGA4();
+    dismiss();
   });
   document.getElementById('cookie-decline').addEventListener('click', function () {
-    localStorage.setItem('cookie-consent', 'declined'); dismiss();
+    localStorage.setItem('cookie-consent', 'declined');
+    dismiss();
   });
 })();
 
